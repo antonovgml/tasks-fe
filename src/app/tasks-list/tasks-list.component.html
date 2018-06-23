@@ -1,0 +1,27 @@
+ tasks-list works!
+<br/>
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Task</th>
+    <th>Clear All</th>
+  </tr>
+
+  <tr *ngFor="let task of tasks" (click)="onSelect(task)">
+    <td>{{task.id}}</td>
+    <td>{{task.title}}</td>
+    <td (click)="deleteTask(task.id)">delete</td>
+  </tr>
+  <tr>
+    <td colspan="3" (click)="addTask()">Add</td>
+  </tr>
+
+</table>
+
+<br/>
+
+<div *ngIf="selectedTask">
+
+  <app-task-detail [task] = "selectedTask"></app-task-detail>
+</div>
