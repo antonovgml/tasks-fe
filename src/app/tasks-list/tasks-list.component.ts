@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../model/task';
 import { TASKS } from '../mock-tasks';
+import { TaskService } from '../services/task.service';
 
 @Component({
   selector: 'app-tasks-list',
@@ -13,22 +14,22 @@ export class TasksListComponent implements OnInit {
 
   selectedTask: Task;
 
-  constructor() { }
+  constructor(private taskService: TaskService) { }
 
   ngOnInit() {
-    this.tasks = TASKS;
+    this.getTasks();
   }
 
-  onSelect(task: Task): void{
-    console.log("SELECTED TASK: " + task);
-    this.selectedTask = task;
-
+  getTasks(): void{
+    this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
   }
+
 
   addTask(): void{
     var maxId = this.tasks.reduce((prev, curr)=>{return (curr.id > prev.id)? curr: prev;}).id
     var newTask = new Task();
     newTask.id = maxId + 1;
+    newTask.title = "NewTask";
     this.tasks.push(newTask);
 
 

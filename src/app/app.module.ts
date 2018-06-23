@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { TaskService } from './services/task.service';
+import { AppRoutingModule } from './/app-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -16,9 +19,10 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    AppRoutingModule,
   ],
-  providers: [],
+  providers: [/*TaskService,*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

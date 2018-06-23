@@ -10,8 +10,8 @@
 
   <tr *ngFor="let task of tasks" (click)="onSelect(task)">
     <td>{{task.id}}</td>
-    <td>{{task.title}}</td>
-    <td (click)="deleteTask(task.id)">delete</td>
+    <td> <a routerLink="/tasks/{{task.id}}">{{task.title}}</a> </td>
+    <td (click)="deleteTask(task.id)"><a href = "">delete</a></td>
   </tr>
   <tr>
     <td colspan="3" (click)="addTask()">Add</td>
@@ -21,7 +21,4 @@
 
 <br/>
 
-<div *ngIf="selectedTask">
 
-  <app-task-detail [task] = "selectedTask"></app-task-detail>
-</div>
