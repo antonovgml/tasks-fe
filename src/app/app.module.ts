@@ -10,6 +10,10 @@ import { TaskService } from './services/task.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { RouterModule } from '@angular/router';
 
+import {HttpClientModule} from '@angular/common/http';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './services/in-memory-data.service';
 
 @NgModule({
   declarations: [
@@ -21,6 +25,11 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
+
+    HttpClientModule,
+
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false })
   ],
   providers: [/*TaskService,*/],
   bootstrap: [AppComponent]

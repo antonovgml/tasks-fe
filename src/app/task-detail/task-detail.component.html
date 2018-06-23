@@ -1,8 +1,29 @@
-<p>
-  Current task:
-  <input [(ngModel)]="task.title">
+ Current task:
 
+<div>
+  <label for="id">ID:</label>
+  <span id="id">{{task.id}}</span>
+</div>
+<br/>
+<div>
+  <label for="title">Title:</label>
   <br/>
+  <input id="title" [(ngModel)]="task.title">
+</div>
+<br/>
+<div>
+    <label for="details">Details:</label>
+    <br/>
+    <textarea id="details" [(ngModel)]="task.details"></textarea>
+</div>
+<br/>
+<div>
+    <label for="datecreated">Created Date:</label>
+    <br/>
+    <input disabled type="datetime" id="datecreated" value="{{task.date_created}}">
+</div>
+<br/>
+<br/>
 
-  <button (click)="goBack()">go back</button>
-</p>
+<button (click)="goBack()">go back</button>
+<button (click)="saveTask()">save</button>

@@ -1,24 +1,21 @@
- tasks-list works!
 <br/>
-
 <table border="1">
+  <tr>
+    <th colspan="3">My List</th>
+  </tr>
   <tr>
     <th>ID</th>
     <th>Task</th>
     <th>Clear All</th>
   </tr>
-
-  <tr *ngFor="let task of tasks" (click)="onSelect(task)">
-    <td>{{task.id}}</td>
-    <td> <a routerLink="/tasks/{{task.id}}">{{task.title}}</a> </td>
-    <td (click)="deleteTask(task.id)"><a href = "">delete</a></td>
+  <tr *ngFor="let task of tasks">
+    <td><a routerLink="/tasks/{{task.id}}">{{task.id}}</a></td>
+    <td><a routerLink="/tasks/{{task.id}}">{{task.title}}</a></td>
+    <td (click)="deleteTask(task.id)"><a routerLink="/tasks">delete</a></td>
   </tr>
   <tr>
-    <td colspan="3" (click)="addTask()">Add</td>
+    <th colspan="3" (click)="addTask()">Add</th>
   </tr>
-
 </table>
 
 <br/>
-
-

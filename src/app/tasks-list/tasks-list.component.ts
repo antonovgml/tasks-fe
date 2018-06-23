@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../model/task';
-import { TASKS } from '../mock-tasks';
+
 import { TaskService } from '../services/task.service';
 
 @Component({
@@ -27,18 +27,18 @@ export class TasksListComponent implements OnInit {
 
   addTask(): void{
     var maxId = this.tasks.reduce((prev, curr)=>{return (curr.id > prev.id)? curr: prev;}).id
-    var newTask = new Task();
-    newTask.id = maxId + 1;
+    var newTask = new Task();    
     newTask.title = "NewTask";
-    this.tasks.push(newTask);
+    this.taskService.addTask(newTask).subscribe((task) => this.tasks.push(task));
 
 
   }
 
   deleteTask(taskId: number): void{
 
-
     this.tasks = this.tasks.filter( task => task.id != taskId)
+    this.taskService.deleteTask(taskId).subscribe();
+    
   }
 
 }
