@@ -9,8 +9,8 @@
     <th>Clear All</th>
   </tr>
   <tr *ngFor="let task of tasks">
-    <td><a routerLink="/tasks/{{task.id}}">{{task.id}}</a></td>
-    <td><a routerLink="/tasks/{{task.id}}">{{task.title}}</a></td>
+    <td><a routerLink="/tasks/{{task.id}}/">{{task?.id}}</a></td>
+    <td><a routerLink="/tasks/{{task.id}}/">{{task?.title}}</a></td>
     <td><a (click)="deleteTask(task.id)" routerLink="/tasks">delete</a></td>
   </tr>
   <tr class="addButton">

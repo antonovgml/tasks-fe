@@ -17,7 +17,7 @@ const httpOptions = {
 })
 export class TaskService {
 
-  private tasksUrl = 'api/tasks';
+  private tasksUrl = 'api/tasks/';
 
   constructor(private http: HttpClient) { }
 
@@ -34,7 +34,7 @@ export class TaskService {
   /** GET: retrieve task by id */
   getTask(taskId: number): Observable<Task> {
 
-    return this.http.get<Task>(`${this.tasksUrl}/${taskId}`, httpOptions)
+    return this.http.get<Task>(`${this.tasksUrl}${taskId}/`, httpOptions)
       .pipe(
         catchError(this.handleError<Task>(`getTask(${taskId})`))
       );
@@ -52,7 +52,7 @@ export class TaskService {
   /** PUT: update specific task */
   updateTask(task: Task): Observable<Task> {
 
-    return this.http.put<Task>(`${this.tasksUrl}/${task.id}`, task, httpOptions)
+    return this.http.put<Task>(`${this.tasksUrl}${task.id}/`, task, httpOptions)
       .pipe(
         catchError(this.handleError<Task>(`updateTask(${JSON.stringify(task)})`))
       );
@@ -61,8 +61,8 @@ export class TaskService {
   /** DELETE: delete specified task by ID */
   deleteTask(task: Task | number) {
 
-    let taskId = typeof task === 'number' ? task : task.id;
-    let url = `${this.tasksUrl}/${taskId}`;
+    const taskId = typeof task === 'number' ? task : task.id;
+    const url = `${this.tasksUrl}${taskId}`;
 
     return this.http.delete(url, httpOptions)
       .pipe(

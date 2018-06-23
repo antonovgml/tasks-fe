@@ -2,25 +2,25 @@
 
 <div>
   <label for="id">ID:</label>
-  <span id="id">{{task.id}}</span>
+  <span id="id">{{task?.id}}</span>
 </div>
 <br/>
 <div>
   <label for="title">Title:</label>
   <br/>
-  <input id="title" [(ngModel)]="task.title">
+  <input id="title" *ngIf = "task" [(ngModel)]="task.title">
 </div>
 <br/>
 <div>
     <label for="details">Details:</label>
     <br/>
-    <textarea id="details" [(ngModel)]="task.details"></textarea>
+    <textarea id="details" *ngIf = "task" [(ngModel)]="task.details"></textarea>
 </div>
 <br/>
 <div>
     <label for="datecreated">Created Date:</label>
     <br/>
-    <input disabled type="datetime" id="datecreated" value="{{task.date_created}}">
+    <div id="datecreated"> {{task?.date_created | date:'long'}} <div>
 </div>
 <br/>
 <br/>
