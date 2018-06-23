@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 
 import { Task } from '../model/task';
 
-
+/** set JSON content type */
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -19,13 +19,12 @@ export class TaskService {
 
   private tasksUrl = 'api/tasks';
 
-
-
   constructor(private http: HttpClient) { }
 
 
   /** GET: retrieve all tasks */
   getTasks(): Observable<Task[]> {
+
     return this.http.get<Task[]>(this.tasksUrl)
       .pipe(
         catchError(this.handleError<Task[]>('getTasks()', []))
@@ -37,16 +36,16 @@ export class TaskService {
 
     return this.http.get<Task>(`${this.tasksUrl}/${taskId}`, httpOptions)
       .pipe(
-        catchError(this.handleError<Task>(`getHero id=${taskId}`))
+        catchError(this.handleError<Task>(`getTask(${taskId})`))
       );
-
   }
 
   /** POST: add a new Task to the server */
   addTask(task: Task): Observable<Task> {
+
     return this.http.post<Task>(this.tasksUrl, task, httpOptions)
       .pipe(
-        catchError(this.handleError<Task>('addTask'))
+        catchError(this.handleError<Task>(`addTask(${JSON.stringify(task)})`))
       );
   }
 
@@ -54,13 +53,16 @@ export class TaskService {
   updateTask(task: Task): Observable<Task> {
 
     return this.http.put<Task>(`${this.tasksUrl}/${task.id}`, task, httpOptions)
+      .pipe(
+        catchError(this.handleError<Task>(`updateTask(${JSON.stringify(task)})`))
+      );
   }
 
   /** DELETE: delete specified task by ID */
   deleteTask(task: Task | number) {
 
-    const taskId = typeof task === 'number' ? task : task.id;
-    const url = `${this.tasksUrl}/${taskId}`;
+    let taskId = typeof task === 'number' ? task : task.id;
+    let url = `${this.tasksUrl}/${taskId}`;
 
     return this.http.delete(url, httpOptions)
       .pipe(
@@ -71,11 +73,8 @@ export class TaskService {
   handleError<T>(operation = 'operation', result?: T) {
 
     return (error: any): Observable<T> => {
-
       console.error(error); // log to console
-
       return of(result as T);
     };
-
   }
 }

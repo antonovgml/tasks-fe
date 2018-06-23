@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class TaskDetailComponent implements OnInit {
 
-  @Input() task: Task;
+  task: Task;
 
   constructor(
     private route: ActivatedRoute,
@@ -20,25 +20,18 @@ export class TaskDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getTask();
-
   }
-
 
   getTask() {
     let taskId = +this.route.snapshot.paramMap.get('id');
     this.taskService.getTask(taskId).subscribe(task => this.task = task);
-
-
   }
-
 
   saveTask() {
     this.taskService.updateTask(this.task).subscribe(() => this.goBack());
-
   }
 
   goBack() {
     this.location.back();
   }
-
 }
