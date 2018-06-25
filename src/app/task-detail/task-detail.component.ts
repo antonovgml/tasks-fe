@@ -23,7 +23,7 @@ export class TaskDetailComponent implements OnInit {
   }
 
   getTask() {
-    let taskId = +this.route.snapshot.paramMap.get('id');
+    const taskId = +this.route.snapshot.paramMap.get('id');
     this.taskService.getTask(taskId).subscribe(task => this.task = task);
   }
 

@@ -1,0 +1,1 @@
+ng build --prod --deploy-url /static/
