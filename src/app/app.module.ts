@@ -8,7 +8,8 @@ import { TaskService } from './services/task.service';
 import { AppRoutingModule } from './/app-routing.module';
 
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 import {HttpClientModule} from '@angular/common/http';
 
@@ -34,6 +35,7 @@ import { environment } from '../environments/environment';
       InMemoryDataService, { dataEncapsulation: false, delay: 1000 }),
 
     NgbModule.forRoot(),
+    ClickOutsideModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

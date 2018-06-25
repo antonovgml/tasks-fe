@@ -4,18 +4,30 @@
     <th colspan="3">My List</th>
   </tr>
   <tr>
-    <th>ID</th>
+    <th class = "id-column">ID</th>
     <th>Task</th>
-    <th class="handPointer" (click)="deleteAllTasks()">Clear All</th>
+    <th class="handPointer delete-column" (click)="deleteAllTasks()">Clear All</th>
   </tr>
-  <tr *ngFor="let task of tasks">    
-    <td><a routerLink="/tasks/{{task.id}}/">{{task?.id}}</a></td>
-    <td><a routerLink="/tasks/{{task.id}}/">{{task?.title}}</a></td>
-    <td><a (click)="deleteTask(task.id)" routerLink="/tasks">delete</a></td>
+  <tr *ngFor="let task of tasks">
+    <td>
+      <a routerLink="/tasks/{{task.id}}/">{{task?.id}}</a>
+    </td>
+    <td *ngIf="task.isEdit; else read_mode">
+        <input type="text" *ngIf="task" [(ngModel)]="task.title" (clickOutside)="onClickedOutside($event, task); false">
+    </td>
+    <ng-template #read_mode>
+      <td (click)="onEditTask($event, task); false">
+        <a routerLink="/tasks/{{task.id}}/">{{task?.title}}</a>
+      </td>
+    </ng-template>
+    <td>
+      <a (click)="deleteTask(task.id)" routerLink="/tasks">delete</a>
+    </td>
   </tr>
   <tr class="handPointer">
     <th colspan="3" (click)="addTask()">Add</th>
   </tr>
 </table>
-
 <br/>
+
+

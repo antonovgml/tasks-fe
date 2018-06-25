@@ -24,10 +24,12 @@
     "@ng-bootstrap/ng-bootstrap": "^2.1.2",
     "@ng-bootstrap/schematics": "^2.0.0-alpha.1",
     "angular-in-memory-web-api": "^0.6.0",
+    "bootstrap": "^4.0.0",
     "core-js": "^2.4.1",
+    "ng-click-outside": "^4.0.0",
+    "npm": "^6.1.0",
     "rxjs": "^6.2.1",
-    "zone.js": "^0.8.26",
-    "bootstrap": "^4.0.0"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular/cli": "6.0.8",

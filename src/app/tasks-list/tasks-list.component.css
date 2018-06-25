@@ -21,3 +21,15 @@ tr:nth-child(even) {
 .handPointer {
     cursor: pointer;
 }
+
+.id-column {
+    width: 10%;
+}
+
+.title-column {
+    width: 80%;
+}
+
+.delete-column {
+    width: 10%;
+}
