@@ -25,17 +25,23 @@ export class TasksListComponent implements OnInit {
   }
 
   addTask(): void {
-    let maxId = 1;
-    if (this.tasks.length > 0) {
-      maxId = this.tasks.reduce((prev, curr) => (curr.id > prev.id) ? curr : prev).id;
-    }
     const newTask = new Task();
-    this.taskService.addTask(newTask).subscribe((task) => this.tasks.push(task));
+    this.taskService.addTask(newTask).subscribe(
+      () => this.getTasks()
+    );
   }
 
   deleteTask(taskId: number): void {
     this.tasks = this.tasks.filter( task => task.id !== taskId);
-    this.taskService.deleteTask(taskId).subscribe();
+    this.taskService.deleteTask(taskId).subscribe(
+      () => this.getTasks()
+    );
+  }
+
+  deleteAllTasks(): void {
+    this.taskService.deleteAllTasks().subscribe(
+      () => this.getTasks()
+    );
   }
 
 }

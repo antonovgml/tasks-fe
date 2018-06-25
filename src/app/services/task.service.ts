@@ -66,8 +66,17 @@ export class TaskService {
 
     return this.http.delete(url, httpOptions)
       .pipe(
-        catchError(this.handleError<Task>('adTask'))
+        catchError(this.handleError<Task>(`deleteTask(${JSON.stringify(task)})`))
       );
+  }
+
+  /** DELETE entire collection. Additionally implemented on Django side */
+  deleteAllTasks() {
+    return this.http.delete(this.tasksUrl, httpOptions)
+    .pipe(
+      catchError(this.handleError<Task>(`deleteAllTasks()`))
+    );
+
   }
 
   handleError<T>(operation = 'operation', result?: T) {

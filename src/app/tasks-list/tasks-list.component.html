@@ -6,14 +6,14 @@
   <tr>
     <th>ID</th>
     <th>Task</th>
-    <th>Clear All</th>
+    <th class="handPointer" (click)="deleteAllTasks()">Clear All</th>
   </tr>
   <tr *ngFor="let task of tasks">
     <td><a routerLink="/tasks/{{task.id}}/">{{task?.id}}</a></td>
     <td><a routerLink="/tasks/{{task.id}}/">{{task?.title}}</a></td>
     <td><a (click)="deleteTask(task.id)" routerLink="/tasks">delete</a></td>
   </tr>
-  <tr class="addButton">
+  <tr class="handPointer">
     <th colspan="3" (click)="addTask()">Add</th>
   </tr>
 </table>

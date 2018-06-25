@@ -18,6 +18,6 @@ tr:nth-child(even) {
     background-color: papayawhip;
 }
 
-.addButton {
+.handPointer {
     cursor: pointer;
 }
