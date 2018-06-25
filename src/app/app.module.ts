@@ -6,20 +6,22 @@ import { TasksListComponent } from './tasks-list/tasks-list.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { TaskService } from './services/task.service';
 import { AppRoutingModule } from './/app-routing.module';
-import { RouterModule } from '@angular/router';
+
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {HttpClientModule} from '@angular/common/http';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './services/in-memory-data.service';
+import { InMemoryDataService } from './services/in-memory-data.service';
 
-import { environment } from '../environments/environment'
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
     AppComponent,
     TasksListComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +29,11 @@ import { environment } from '../environments/environment'
     AppRoutingModule,
     HttpClientModule,
 
-    environment.production ? []:
+    environment.production ? [] :
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false, delay: 1000 }),
+
+    NgbModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

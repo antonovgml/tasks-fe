@@ -8,22 +8,24 @@
 <div>
   <label for="title">Title:</label>
   <br/>
-  <input id="title" *ngIf = "task" [(ngModel)]="task.title">
+  <input id="title" *ngIf="task" [(ngModel)]="task.title">
 </div>
 <br/>
 <div>
-    <label for="details">Details:</label>
-    <br/>
-    <textarea id="details" *ngIf = "task" [(ngModel)]="task.details"></textarea>
+  <label for="details">Details:</label>
+  <br/>
+  <textarea id="details" *ngIf="task" [(ngModel)]="task.details"></textarea>
 </div>
 <br/>
 <div>
-    <label for="datecreated">Created Date:</label>
-    <br/>
-    <div id="datecreated"> {{task?.date_created | date:'long'}} <div>
-</div>
-<br/>
-<br/>
+  <label for="datecreated">Created Date:</label>
+  <br/>
+  <div id="datecreated"> {{task?.date_created | date:'long'}}
 
-<button (click)="goBack()">go back</button>
-<button (click)="saveTask()">save</button>
+  </div>
+  <br/>
+  <br/>
+  
+    <button class = "btn" (click)="goBack() ">Go Back</button>
+    <button class = "btn btn-primary" (click)="saveTask() " ngbButton>Save</button>
+  
