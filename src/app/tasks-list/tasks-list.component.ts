@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Task } from '../model/task';
 
 import { TaskService } from '../services/task.service';
 import { IEditable } from '../model/i-editable';
+import { IAppState } from '../redux/store';
+import { CounterActions } from '../redux/actions';
+import { NgRedux, select } from '@angular-redux/store';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-list',
@@ -13,8 +17,15 @@ export class TasksListComponent implements OnInit {
 
   tasks: Task[];
   editingTask: Task;
+  @select() readonly count$: Observable<number>; // automatically bind to count$ in redux store
 
-  constructor(private taskService: TaskService) { }
+  constructor(
+    private taskService: TaskService,
+    private ngRedux: NgRedux<IAppState>,
+    private actions: CounterActions
+  ) {
+
+  }
 
   ngOnInit() {
     this.getTasks();
@@ -66,4 +77,12 @@ export class TasksListComponent implements OnInit {
     );
   }
 
+  increment() {
+    this.ngRedux.dispatch(this.actions.increment());
+  }
+  decrement() {
+    this.ngRedux.dispatch(this.actions.decrement());
+  }
+
+  
 }
