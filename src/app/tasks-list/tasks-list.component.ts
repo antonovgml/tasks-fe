@@ -30,7 +30,7 @@ export class TasksListComponent implements OnInit {
   }
 
   onClickedOutside(event, task: Task) {
-    console.log("Clicked outside of " + JSON.stringify(task));
+    console.log('Clicked outside of ' + JSON.stringify(task));
     if (task['isEdit']) {
       task['isEdit'] = false;
       this.editingTask = null;
