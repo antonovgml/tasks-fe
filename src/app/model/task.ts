@@ -1,5 +1,3 @@
-import { IEditable } from "./i-editable";
-
 export class Task {
     id: number;
     title: string;

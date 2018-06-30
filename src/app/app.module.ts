@@ -18,10 +18,11 @@ import { InMemoryDataService } from './services/in-memory-data.service';
 
 import { environment } from '../environments/environment';
 
-
+import { createEpicMiddleware } from 'redux-observable';
 import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 import { IAppState, rootReducer, INITIAL_STATE } from './redux/store';
-import { CounterActions } from './redux/actions';
+import { TaskActions } from './redux/task.actions';
+import { TaskEpics } from './redux/task.epics';
 
 
 @NgModule({
@@ -44,18 +45,24 @@ import { CounterActions } from './redux/actions';
     ClickOutsideModule,
     NgReduxModule,
   ],
-  providers: [CounterActions],
+  providers: [TaskActions, TaskEpics],
   bootstrap: [AppComponent]
 })
 export class AppModule {
   constructor(
     ngRedux: NgRedux<IAppState>,
+    private taskEpics: TaskEpics,
     devTools: DevToolsExtension) {
 
     const storeEnhancers = devTools.isEnabled() ?
       [devTools.enhancer()] :
       [];
 
+    /*
+    const middleware = [
+      createEpicMiddleware(this.taskEpics.readTasks)
+    ];
+*/
     ngRedux.configureStore(
       rootReducer,
       INITIAL_STATE,
