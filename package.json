@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-redux/store": "^9.0.0",
     "@angular/animations": "6.0.6",
     "@angular/common": "6.0.6",
     "@angular/compiler": "6.0.6",
@@ -28,6 +29,8 @@
     "core-js": "^2.4.1",
     "ng-click-outside": "^4.0.0",
     "npm": "^6.1.0",
+    "redux": "^4.0.0",
+    "redux-observable": "^1.0.0",
     "rxjs": "^6.2.1",
     "zone.js": "^0.8.26"
   },

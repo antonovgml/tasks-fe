@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../model/task';
 
 import { TaskService } from '../services/task.service';
-import { IEditable } from '../model/i-editable';
+import { IAppState } from '../redux/store';
+import { TaskActions } from '../redux/task.actions';
+import { NgRedux, select } from '@angular-redux/store';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-tasks-list',
@@ -11,58 +14,62 @@ import { IEditable } from '../model/i-editable';
 })
 export class TasksListComponent implements OnInit {
 
-  tasks: Task[];
-  editingTask: Task;
+  @select() tasks: Observable<Task[]>;
+  @select() editingTaskId$: Observable<number>;
 
-  constructor(private taskService: TaskService) { }
+  constructor(
+    private taskService: TaskService,
+    private ngRedux: NgRedux<IAppState>,
+    private taskActions: TaskActions,
+  ) {
+  }
 
   ngOnInit() {
     this.getTasks();
   }
 
-  onEditTask(event, task: Task) {
-    if (!this.editingTask) {
-      task['isEdit'] = true;
-      this.editingTask = task;
-      event.stopPropagation();
-    }
-
-  }
-
-  onClickedOutside(event, task: Task) {
-    console.log('Clicked outside of ' + JSON.stringify(task));
-    if (task['isEdit']) {
-      task['isEdit'] = false;
-      this.editingTask = null;
-      this.taskService.updateTask(task as Task).subscribe();
-    }
+  onStartedEditingTask(event, task: Task) {
+    this.ngRedux.dispatch(this.taskActions.startEditingTask(task.id));
 
     event.stopPropagation();
+  }
 
+  onFinishedEditingTask(event, task: Task) {
+    this.ngRedux.dispatch(this.taskActions.updateTask(task));
+    this.ngRedux.dispatch(this.taskActions.finishEditingTask());
+    this.taskService.updateTask(task as Task).subscribe();
+
+    event.stopPropagation();
   }
 
   getTasks(): void {
-    this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
+    this.taskService.getTasks()
+      .subscribe(
+        (tasks: Task[]) => this.ngRedux.dispatch(this.taskActions.readTasks(tasks))
+      );
   }
 
   addTask(): void {
     const newTask = new Task();
     this.taskService.addTask(newTask).subscribe(
-      () => this.getTasks()
+      (task: Task) => {
+        this.ngRedux.dispatch(this.taskActions.addTask(task));
+      }
     );
   }
 
   deleteTask(taskId: number): void {
-    this.editingTask = null;
-    this.tasks = this.tasks.filter(task => task.id !== taskId);
     this.taskService.deleteTask(taskId).subscribe(
-      () => this.getTasks()
+      _ => this.ngRedux.dispatch(this.taskActions.deleteTask(taskId))
     );
   }
 
   deleteAllTasks(): void {
     this.taskService.deleteAllTasks().subscribe(
-      () => this.getTasks()
+      () => {
+        this.ngRedux.dispatch(this.taskActions.finishEditingTask());
+        this.ngRedux.dispatch(this.taskActions.deleteAllTasks());
+      }
     );
   }
 
